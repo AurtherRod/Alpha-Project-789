@@ -438,6 +438,23 @@ MonoBehaviour:
   gridLayoutGroup: {fileID: 1984358743}
   imagesParent: {fileID: 1984358742}
   cardPrefab: {fileID: 4758050220859891423, guid: dd98d547f35114b5084c86a065e71997, type: 3}
+  imagesList:
+  - {fileID: -1415150106, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: -908186819, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: -1428527433, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: 99530700, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: 1972011109, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: -1754430340, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: -1168980401, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: -922494246, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: 287866579, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: 1040955712, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: -1240312905, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: -424567210, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: -203888572, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: 828155385, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: 562447566, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
+  - {fileID: -565578891, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
 --- !u!1 &1129237466
 GameObject:
   m_ObjectHideFlags: 0

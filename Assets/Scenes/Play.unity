@@ -438,6 +438,7 @@ MonoBehaviour:
   gridLayoutGroup: {fileID: 1984358743}
   imagesParent: {fileID: 1984358742}
   cardPrefab: {fileID: 4758050220859891423, guid: dd98d547f35114b5084c86a065e71997, type: 3}
+  cardBackSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   imagesList:
   - {fileID: -1415150106, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}
   - {fileID: -908186819, guid: fbc87cb57a41a4ccfb2bab5d31e5931e, type: 3}

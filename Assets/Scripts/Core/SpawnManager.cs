@@ -7,9 +7,9 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] GridLayoutGroup gridLayoutGroup;
     [SerializeField] Transform imagesParent;
     [SerializeField] GameObject cardPrefab;
+    [SerializeField] Sprite cardBackSprite;
 
     [SerializeField] List<Sprite> imagesList = new List<Sprite>();
-    [SerializeField] List<Sprite> spawnedCardsList = new List<Sprite>();
 
     void Start()
     {
@@ -23,51 +23,22 @@ public class SpawnManager : MonoBehaviour
         int column = 2;
         switch (level)
         {
-            case 0:
-                numberOfCards = 4;
-                column = 2;
-                break;
-            case 1:
-                numberOfCards = 6;
-                column = 3;
-                break;
-            case 2:
-                numberOfCards = 16;
-                column = 4;
-                break;
-            case 3:
-                numberOfCards = 30;
-                column = 6;
-                break;
-            default:
-                numberOfCards = 4;
-                column = 2;
-                break;
+            case 0: numberOfCards = 4; column = 2; break;
+            case 1: numberOfCards = 6; column = 3; break;
+            case 2: numberOfCards = 16; column = 4; break;
+            case 3: numberOfCards = 30; column = 6; break;
+            default: numberOfCards = 4; column = 2; break;
         }
+
         SetGridLayout(column);
-        SpawnImages(numberOfCards, imagesParent);
-        AssignImagesToCards();
+        SpawnCards(numberOfCards);
+        GameManager.Instance.InitializeGame(numberOfCards / 2);
     }
 
-    void SpawnImages(int numberOfCards, Transform parent)
-    {
-        for (int i = 0; i < numberOfCards; i++)
-        {
-            GameObject card = Instantiate(cardPrefab, parent);
-            spawnedCardsList.Add(card.GetComponent<Image>().sprite);
-        }
-
-    }
-
-    void SetGridLayout(int column)
-    {
-        gridLayoutGroup.constraintCount = column;
-    }
-
-    void AssignImagesToCards()
+    void SpawnCards(int numberOfCards)
     {
         List<Sprite> cardSprites = new List<Sprite>();
-        int pairsNeeded = imagesParent.childCount / 2;
+        int pairsNeeded = numberOfCards / 2;
 
         for (int i = 0; i < pairsNeeded; i++)
         {
@@ -84,14 +55,19 @@ public class SpawnManager : MonoBehaviour
             cardSprites[randomIndex] = temp;
         }
 
-        for (int i = 0; i < imagesParent.childCount; i++)
+        for (int i = 0; i < numberOfCards; i++)
         {
-            Image image = imagesParent.GetChild(i).GetComponent<Image>();
-            if (image != null && i < cardSprites.Count)
+            GameObject cardObj = Instantiate(cardPrefab, imagesParent);
+            Card card = cardObj.GetComponent<Card>();
+            if (card != null)
             {
-                image.sprite = cardSprites[i];
+                card.SetCardData(cardSprites[i], cardBackSprite);
             }
         }
     }
 
+    void SetGridLayout(int column)
+    {
+        gridLayoutGroup.constraintCount = column;
+    }
 }

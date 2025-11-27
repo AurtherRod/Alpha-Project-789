@@ -82,5 +82,6 @@ public class Card : MonoBehaviour
     {
         isMatched = true;
         isFlipped = true;
+        gameObject.GetComponent<Image>().enabled = false;
     }
 }

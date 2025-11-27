@@ -34,6 +34,6 @@ public class PlayTimeUI : MonoBehaviour
     public void OnMenuButtonPressed()
     {
         AudioManager.Instance?.PlayButtonClickSFX();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Entry");
     }
 }

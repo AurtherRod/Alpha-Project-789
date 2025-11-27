@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Memory-Game.sln"
+    "dotnet.defaultSolution": "Memory-Game.sln",
+    "liveServer.settings.port": 5501
 }

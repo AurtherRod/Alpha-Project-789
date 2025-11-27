@@ -7,11 +7,13 @@ public class PlayTimeUI : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI Move;
     [SerializeField] private TMPro.TextMeshProUGUI HighScore;
     [SerializeField] private TMPro.TextMeshProUGUI PassedTime;
+    [SerializeField] private TMPro.TextMeshProUGUI LevelNumber;
 
     void Start()
     {
         levelManager = LevelManager.Instance;
         HighScore.text = levelManager.GetHighScore().ToString();
+        LevelNumber.text = "LEVEL " + (levelManager.CurrentLevel + 1).ToString();
     }
     void Update()
     {
@@ -21,5 +23,17 @@ public class PlayTimeUI : MonoBehaviour
             PassedTime.text = passedTime;
             Move.text = moves;
         }
+    }
+
+    public void OnRestartButtonPressed()
+    {
+        AudioManager.Instance?.PlayButtonClickSFX();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Play");
+    }
+
+    public void OnMenuButtonPressed()
+    {
+        AudioManager.Instance?.PlayButtonClickSFX();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
     }
 }

@@ -1,26 +1,28 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
     [SerializeField] GameObject nextLevelButton;
     GameManager gameManager;
-
     void Start()
     {
         gameManager = GameManager.Instance;
     }
+
     public void OnNextLevelButtonPressed()
     {
-        if (gameManager.LevelToLoad >= SaveSystem.Instance.GetPlayerData().CurrentLevel)
-        {
+        PlayerData playerData = SaveSystem.Instance.GetPlayerData();
+        int nextLevel = (gameManager.LevelToLoad + 1) % playerData.Levels.Length;
+
+        if (nextLevel > playerData.CurrentLevel && nextLevelButton != null)
             nextLevelButton.SetActive(false);
-        }
-        gameManager.SetLevelToLoad(LevelManager.Instance.CurrentLevel + 1);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Play");
+
+        gameManager.SetLevelToLoad(nextLevel);
+        SceneManager.LoadScene("Play");
     }
 
-    public void OnMenuButtonPressed()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
-    }
+    public void OnMenuButtonPressed() => SceneManager.LoadScene("Menu");
+
+    public void OnMusicPanelButtonPressed() => AudioManager.Instance.AudioPanelOpen();
 }

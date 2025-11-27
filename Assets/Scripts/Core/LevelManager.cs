@@ -17,23 +17,20 @@ public class LevelManager : MonoBehaviour
     private int matchedPairs = 0;
     private int totalPairs;
     private bool isProcessing = false;
-
-    public int GetHighScore()
-    {
-        return SaveSystem.Instance.GetCurrentLevelHighScore(CurrentLevel);
-    }
+    public int GetHighScore() => SaveSystem.Instance.GetCurrentLevelHighScore(CurrentLevel);
 
     [SerializeField] float PassedTime = 0;
     void Awake()
     {
-        Destroy(Instance);
+        if (Instance != null)
+            Destroy(Instance.gameObject);
         Instance = this;
+        CurrentLevel = GameManager.Instance.LevelToLoad;
     }
 
     void Start()
     {
         IsLevelCompleted = false;
-        CurrentLevel = GameManager.Instance.LevelToLoad;
     }
 
     public void InitializeGame(int pairs)
@@ -88,10 +85,10 @@ public class LevelManager : MonoBehaviour
 
                 if (matchedPairs >= totalPairs)
                 {
+                    AudioManager.Instance?.PlayWinGameSFX();
                     IsLevelCompleted = true;
                     GamePlayUI.SetActive(false);
                     LevelCompleteUI.SetActive(true);
-                    Debug.Log("Level Complete! Score: " + Score + " Moves: " + Moves);
                     SaveSystem.Instance.CompleteLevel(CurrentLevel, PassedTime, Score, Moves);
                 }
             }

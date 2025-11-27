@@ -36,6 +36,7 @@ public class Card : MonoBehaviour
     {
         if (isMatched || isFlipping || isFlipped)
             return;
+        AudioManager.Instance?.PlayButtonClickSFX();
         StartCoroutine(FlipAnimation());
     }
 

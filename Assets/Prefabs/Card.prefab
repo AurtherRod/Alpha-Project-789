@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardImage: {fileID: 4758050220859891421}
   backSprite: {fileID: 0}
+  flipDuration: 0.3
 --- !u!114 &2003306940359956262
 MonoBehaviour:
   m_ObjectHideFlags: 0

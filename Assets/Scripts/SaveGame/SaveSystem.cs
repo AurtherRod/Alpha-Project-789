@@ -21,7 +21,7 @@ public class SaveSystem : MonoBehaviour
     private const string SAVE_KEY = "PlayerSaveData";
     public static SaveSystem Instance { get; private set; }
 
-    private PlayerData data;
+    [SerializeField] private PlayerData data;
 
     private void Awake()
     {
@@ -29,7 +29,10 @@ public class SaveSystem : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            data = LoadPlayerData() ?? new PlayerData();
+            if (LoadPlayerData() != null)
+            {
+                data = LoadPlayerData();
+            }
         }
         else
         {
@@ -59,24 +62,32 @@ public class SaveSystem : MonoBehaviour
 
     public void CompleteLevel(int levelIndex, float completionTime, int score, int moves)
     {
-        if (levelIndex < 0 || levelIndex >= data.Levels.Length) return;
-        
-        data.CurrentLevel = Mathf.Min(levelIndex + 1, data.Levels.Length - 1);
+        if (levelIndex < 0 || levelIndex >= data.Levels.Length || moves <= 0) return;
+
         var level = data.Levels[levelIndex];
         level.IsCompleted = true;
-        
+
         if (level.CompletionTime == 0 || completionTime < level.CompletionTime)
             level.CompletionTime = completionTime;
-        
-        int newScore = score / moves * 10;
+
+        int newScore = (score * 10) / moves;
         if (newScore > level.Score)
             level.Score = newScore;
-        
+
+        if (levelIndex == data.CurrentLevel && levelIndex < data.Levels.Length - 1)
+            data.CurrentLevel++;
+
         SavePlayerData();
     }
 
-    public int GetCurrentLevelHighScore(int levelIndex) => 
-        levelIndex >= 0 && levelIndex < data.Levels.Length ? data.Levels[levelIndex].Score : 0;
+    public int GetCurrentLevelHighScore(int levelIndex)
+    {
+        if (levelIndex >= 0 && levelIndex < data.Levels.Length)
+        {
+            return data.Levels[levelIndex].Score;
+        }
+        return 0;
+    }
 
 
 }

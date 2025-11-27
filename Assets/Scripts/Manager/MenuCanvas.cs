@@ -1,36 +1,44 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+[System.Serializable]
+public class ButtonData
+{
+    public Button button;
+    public TMPro.TextMeshProUGUI levelScoreText;
+}
 
 public class MenuCanvas : MonoBehaviour
 {
-    [SerializeField] private Button[] LevelButtons;
+    [SerializeField] private ButtonData[] levelButtons;
+    private const string NotCompletedText = "";
 
-    void Start()
+    void Start() => InitializeLevelButtons();
+
+    private void InitializeLevelButtons()
     {
-        LevelButtonManagement();
-    }
+        var playerData = SaveSystem.Instance.GetPlayerData();
+        var currentLevel = playerData.CurrentLevel;
 
-    private void LevelButtonManagement()
-    {
-        PlayerData playerData = SaveSystem.Instance.GetPlayerData();
-        int CurrentLevel = playerData.CurrentLevel;
-
-        for (int i = 0; i < LevelButtons.Length; i++)
+        for (int i = 0; i < levelButtons.Length; i++)
         {
-            if (i <= CurrentLevel)
-            {
-                LevelButtons[i].interactable = true;
-            }
-            else
-            {
-                LevelButtons[i].interactable = false;
-            }
+            ButtonData buttonData = levelButtons[i];
+            bool isUnlocked = i <= currentLevel;
+
+            buttonData.button.interactable = isUnlocked;
+            buttonData.levelScoreText.text = isUnlocked && playerData.Levels[i].IsCompleted
+                ? playerData.Levels[i].Score.ToString()
+                : NotCompletedText;
         }
     }
 
     public void OnLevelButtonPressed(int level)
     {
+        var playerData = SaveSystem.Instance.GetPlayerData();
+        if (level < 0 || level >= playerData.Levels.Length) return;
+        
         GameManager.Instance.SetLevelToLoad(level);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Play");
+        SceneManager.LoadScene("Play");
     }
 }

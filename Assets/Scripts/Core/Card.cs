@@ -68,7 +68,7 @@ public class Card : MonoBehaviour
         transform.localScale = originalScale;
         isFlipping = false;
 
-        GameManager.Instance.OnCardFlipped(this);
+        LevelManager.Instance.OnCardFlipped(this);
     }
 
     public void FlipToBack()

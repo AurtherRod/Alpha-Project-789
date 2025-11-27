@@ -32,7 +32,7 @@ public class SpawnManager : MonoBehaviour
 
         SetGridLayout(column);
         SpawnCards(numberOfCards);
-        GameManager.Instance.InitializeGame(numberOfCards / 2);
+        LevelManager.Instance.InitializeGame(numberOfCards / 2);
     }
 
     void SpawnCards(int numberOfCards)

@@ -3,42 +3,34 @@ using UnityEngine.UI;
 
 public class MenuCanvas : MonoBehaviour
 {
-    [SerializeField] private Slider LevelSlider;
-    [SerializeField] private TMPro.TextMeshProUGUI LevelText;
+    [SerializeField] private Button[] LevelButtons;
 
     void Start()
     {
-        OnLevelSliderChanged();
+        LevelButtonManagement();
     }
 
-    public void OnLevelSliderChanged()
+    private void LevelButtonManagement()
     {
-        int level = (int)Mathf.Clamp(LevelSlider.value, 0, 4);
-        GameManager.Instance.SetLevelToLoad(level);
-        switch (level)
+        PlayerData playerData = SaveSystem.Instance.GetPlayerData();
+        int CurrentLevel = playerData.CurrentLevel;
+
+        for (int i = 0; i < LevelButtons.Length; i++)
         {
-            case 0:
-                LevelText.text = "2x2";
-                break;
-            case 1:
-                LevelText.text = "2x3";
-                break;
-            case 2:
-                LevelText.text = "4x4";
-                break;
-            case 3:
-                LevelText.text = "5x6";
-                break;
-            default:
-                LevelText.text = "2x2";
-                break;
+            if (i <= CurrentLevel)
+            {
+                LevelButtons[i].interactable = true;
+            }
+            else
+            {
+                LevelButtons[i].interactable = false;
+            }
         }
     }
 
-    public void OnPlayButtonPressed()
+    public void OnLevelButtonPressed(int level)
     {
+        GameManager.Instance.SetLevelToLoad(level);
         UnityEngine.SceneManagement.SceneManager.LoadScene("Play");
     }
-
-
 }

@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        jainish();
         Init();
     }
 
@@ -24,10 +25,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        durgesh();
+    }
+
     public void SetLevelToLoad(int level)
     {
         LevelToLoad = level;
     }
 
+    public void jainish()
+    {
+        Debug.Log("Hello Jainish");
+    }
 
+    public void durgesh()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Debug.Log("Durgesh");
+        }
+    }
 }

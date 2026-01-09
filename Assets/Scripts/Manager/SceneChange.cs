@@ -25,4 +25,6 @@ public class SceneChange : MonoBehaviour
     public void OnMenuButtonPressed() => SceneManager.LoadScene("Menu");
 
     public void OnMusicPanelButtonPressed() => AudioManager.Instance.AudioPanelOpen();
+
+    public void OnSceneChangeButtonPressed(string sceneName) => SceneManager.LoadScene(sceneName);
 }
